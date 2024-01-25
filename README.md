@@ -66,10 +66,10 @@ def minha_funcao():
     variavel_global = 'outro valor'
 ```
 
-## Classes e Objetos
+## Programação Orientada a Objetos
 
-## O que é a orientação a objetos
-### Slides
+### O que é a orientação a objetos
+
 * Até o momento, nós vimos aqui a programação tradicional. Nela, programas são listas de instruções para o computador que definem dados (através de variáveis e tipos de dados) e trabalham com esses dados usando funções.
 * Dados e funções são entidades diferentes, e que precisam ser combinadas para produzir o resultado esperado.
 * Por causa dessa separação, muitas vezes a programação tradicional não nos dá uma forma muito intuitiva de representar a o mundo real.
@@ -102,7 +102,7 @@ televisao.aumentar_volume()
 * Como criar meus próprios objetos em Python? Utilizando classes.
 * Classes estruturas usadas para definir um novo tipo de dados (criado pela programadora). Elas descrevem o que um objeto vai ser, mas elas não criam o objeto em si.
 
-## televisao.py
+### televisao.py
 * Classes são criadas com a palavra-chave `class`.
 * Conveção para nomes de classes em Python: **PascalCasing**.
 * Para instanciar um objeto de uma classe, adicionamos parênteses ao nome da classe. 
@@ -121,3 +121,5 @@ televisao.aumentar_volume()
 * Quando digitamos o nome da variável que contém o objeto no VSCode e incluímos o ponto final `.`, o VSCode mostra uma lista de opções de métodos e atributos relativos a nossa classe.
 * No módulo `datetime` da biblioteca padrão, temos as classes `datetime`, `date` e `time`.
   * Passando o mouse em cima dos nomes no `import`, podemos ver que eles são classes.
+
+
