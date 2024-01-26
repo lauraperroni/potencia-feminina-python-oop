@@ -217,3 +217,66 @@ televisao.aumentar_volume()
 * O destrutor é chamado quando todas as referências para o objeto são extintas ou quando a execução do programa é encerrada.
   * Quando um programa termina, o **coletor de lixo** do python destrói todos os objetos em memória. Esta é a última coisa que acontece durante a execução.
 * Em geral, não é comum ver destrutores em códigos Python porque eles são executados automaticamente. Ainda assim é importante ter a noção de que eles existem, porque isso ajuda a entender melhor o que está acontecendo enquanto o seu programa está rodando.
+
+# Aula 6 - Herança e Herança Múltipla
+
+## heranca.py
+* A classe `Estudante` herda da classe `Pessoa`. A sintaxe para indicar isso é colocar o nome da "classe pai" dentro de um parênteses na frente do nome da "classe filha".
+* Os métodos e variáveis da classe pai podem ser acessados com a função `super()`.
+* É uma boa prática sempre chamar o construtor da classe pai no construtor da classe filha. É ele que garante que as propriedades da classe pai vão ser inicializadas corretamente.
+* A classe `Estudante` herda os métodos e as propriedades públicas e protegidas da classe `Pessoa`.
+* A classe `Estudante` pode sobrescrever os valores que foram herdados.
+* Python provê funções nativas para testar se um objeto é instância de uma determinada classe, e se uma classe é derivada de outra.
+* A classe `Trabalhador` também herda de `Pessoa`, e a classe `Professor` herda de trabalhador.
+* `Professor` é um `Trabalhador` e também é uma `Pessoa`, portanto herda métodos e atributos de ambos.
+* Atributos privados não podem ser alterados em classes filhas.
+* Em Python, todas as classes herdam da classe `object`. Isso faz com que toda classe já comece com vários métodos e atributos.
+* A função `dir()` mostra os atributos e métodos de um determinado objeto ou classe. Notem que as propriedades privadas aparecem aqui também, mas com nomes diferentes.
+
+# Herança múltipla - Slide
+* Em Python, uma classe pode herdar de mais de uma classe pai. Esse conceito é conhecido como herança múltipla.
+* As vezes, classes que herdam de mais de uma classe são chamadas de **mixins**.
+* Heraça múltipla é uma funcionalidade muito controversa, porque o uso dessa funcionalidade traz potencialmente muita complexidade para o código.
+* Na maior parte das vezes onde alguém tenta resolver um problema com herança múltipla, existiriam soluções melhores e mais simples.
+* O caso de uso mais legítimo é na criação de um _framework_.
+* Ao trabalhar com Django, vocês podem ver casos onde uma classe vai herdar de duas ou mais classes.
+
+# heranca_multipla.py
+* A classe `Logavel` define o método `logar`. Qualquer classe que herdar dela vai conseguir escrever uma mensagem no log e nós vamos saber de onde a mensagem está vindo pelo atributo `nome_da_classe` que é inicializado no construtor.
+  * Ter uma classe assim é interessante porque a lógica de criar um arquivo de log, escrever as mensagens dentro dele e fechar o arquivo depois fica todo em um lugar só.
+  * Quem está escrevendo um software não precisa se preocupar em escrever essa lógica toda vez, é só herdar de `Logavel`.
+* A classe `Conexao` serve para conectar a um servidor de banco de dados.
+  * O servidor costuma ser um endereço de IP com uma porta.
+* A classe `MySqlDatabase` é uma classe de exemplo que se conecta ao banco de dados **MySql**, que herda tanto de conexão quanto de logável.
+* O meu `framework` super chique aqui é só um metódo que recebe um objeto chamado `item` e testa se esse objeto é uma instância de cada uma das classes. Ele só chama os métodos pertinentes se for.
+
+
+# Aula 7 - Classes Abstratas
+
+## Classes abstratas
+* Uma classe abstrata pode ser considerada como um modelo para criar outras classes. 
+* Em uma classe abstrata, nós criamos um conjunto de métodos que devem ser implementados dentro de qualquer classe filha criada a partir da classe abstrata.
+* Um método abstrato é um método que tem uma declaração, mas não tem uma implementação.
+* Uma classe que contém um ou mais métodos abstratos é chamada de classe abstrata.
+* Não é possível instanciar uma classe abstrata diretamenta. Para criar um objeto do tipo de uma classe abstrata, precisamos instanciar uma das classes filhas.
+* Enquanto estamos projetando grandes unidades funcionais, usamos uma classe abstrata. A ideia é fornecer uma interface comum para diferentes implementações de um componente, que vai ser representado pelas suas classes filhas.
+* Python tem o módulo `ABC` (_Abstract Base Classes_) que fornece a funcionalidade de classes abstratas. A classe abstrata precisa herdar de `ABC` e métodos abstratos são marcados com o _decorator_ `@abstractmethod`.
+* Uma classe filha derivada de uma classe abstrata precisa implementar todos os métodos e propriedades abstratas. Caso contrário, não é possível criar objetos da classe filha.
+
+**Por que usar classes abstratas?**
+* Ao criar classes abstratas, você define uma interface comum para que todas as classes filhas sigam, ou seja, as classes abstratas são usadas para definir a **API** de suas classes filhas.
+* Definir uma API é uma capacidade importante na área de projeto e arquitetura de software.
+* Você pode estar desenvolvendo uma biblioteca de Python que vai prover a definição de uma API que vai ser implementada por outros desenvolvedores.
+* Outro caso de uso é o trabalho em uma equipe/empresa grande que vai precisar criar componentes que fazem coisas semelhantes em diferentes partes do software. Geralmente, um arquiteto define a API que deve ser seguida pelos diferentes componentes.
+* Isso vai ficar mais claro com um exemplo.
+
+## classes_abstratas.py
+* Vamos supor que nós estamos desenvolvendo um jogo da franquia Pokémon.
+* Pokémon é uma franquia grande e conhecida por ter vários jogos lançados. Novos jogos costumam trazer novos pokémons, que ainda não eram conhecidos anteriormente.
+* O arquiteto de software precisa garantir que todas as classes que definem um pokemon sigam uma determinada API, que vai contér o ataque principal daquele pokemon, um método para garantir sua evolução e uma propriedade que guarda o seu tipo.
+* A classe `BasePokemon` herda da classe `ABC` e se torna assim uma classe abstrata.
+* Se tentarmos criar um objeto do tipo da classe base, não vamos conseguir.
+* Criamos uma classe `Pikachu` que vai herdar de `BasePokemon`. Essa classe vai precisar definir no mínimo todos os métodos e propriedades abstratas da classe base.
+* Notem que definimos sem as marcações de abstrato. Essas marcações só existem na classe base.
+* Se algum dos métodos não for implementado, não conseguiremos instanciar o objeto da classe `Pikachu`.
+* Novos métodos podem ser adicionados nas classes derivadas.
